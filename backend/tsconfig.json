@@ -1,0 +1,33 @@
+{
+  "compilerOptions": {
+    /* Dasar Runtime */
+    "target": "ES2023",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "lib": ["ES2023"],
+
+    /* Pengaturan Output */
+    "outDir": "dist",
+    "sourceMap": true,
+    "noEmit": false,
+
+    /* Strictness & Keamanan */
+    "strict": true,
+    "noImplicitAny": true,
+    "skipLibCheck": true,
+
+    /* Interop & Modern JS */
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+
+    /* Lokasi Path */
+    "baseUrl": ".",
+    "paths": {
+      "*": ["node_modules/*", "src/*"]
+    }
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist"]
+}

@@ -1,0 +1,74 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  password  String
+  role      Role     @default(USER)
+  documents Document[]
+  createdAt DateTime @default(now())
+}
+
+model Document {
+  id           String    @id @default(uuid())
+  title        String
+  description  String?
+  documentType String
+  fileUrl      String
+  version      Int       @default(1)
+  status       DocStatus @default(ACTIVE)
+  createdBy    String
+  user         User      @relation(fields: [createdBy], references: [id])
+  createdAt    DateTime  @default(now())
+  requests     PermissionRequest[]
+}
+
+model PermissionRequest {
+  id         String         @id @default(uuid())
+  docId      String
+  document   Document @relation(fields: [docId], references: [id])
+  userId     String
+  action     RequestAction
+  status     RequestStatus  @default(PENDING)
+  createdAt  DateTime       @default(now())
+}
+
+model Notification {
+  id        String   @id @default(uuid())
+  userId    String
+  title     String
+  message   String
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+enum DocStatus {
+  ACTIVE
+  APPROVED
+  PENDING_DELETE
+  PENDING_REPLACE
+}
+
+enum RequestAction {
+  DELETE
+  APPROVE
+  REPLACE
+}
+
+enum RequestStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}

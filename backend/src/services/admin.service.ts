@@ -24,6 +24,8 @@ export const processRequest = async (
     where: { id: requestId },
   });
 
+  console.log(request);
+
   if (!request) throw new Error("Request tidak ditemukan");
 
   return prisma.$transaction(async (tx) => {
@@ -32,7 +34,23 @@ export const processRequest = async (
       data: { status },
     });
 
+    if (status === "REJECTED") {
+      await tx.document.update({
+        where: { id: request.docId },
+        data: { status: "REJECTED" },
+      });
+      return updatedRequest;
+    }
+
     if (status === "APPROVED") {
+      if (request.action === "APPROVE") {
+        await tx.document.update({
+          where: { id: request.docId },
+          data: {
+            status: "APPROVED",
+          },
+        });
+      }
       if (request.action === "DELETE") {
         await tx.document.delete({ where: { id: request.docId } });
       }

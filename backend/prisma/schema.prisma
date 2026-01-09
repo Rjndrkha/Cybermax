@@ -57,6 +57,7 @@ enum Role {
 enum DocStatus {
   ACTIVE
   APPROVED
+  REJECTED
   PENDING_DELETE
   PENDING_REPLACE
 }
@@ -64,6 +65,7 @@ enum DocStatus {
 enum RequestAction {
   DELETE
   APPROVE
+  REJECTED
   REPLACE
 }
 

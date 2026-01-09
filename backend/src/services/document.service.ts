@@ -14,7 +14,7 @@ export const uploadDocument = async (data: any, userId: string) => {
       data: {
         docId: doc.id,
         userId: userId,
-        action: "APPROVE", 
+        action: "APPROVE",
         status: "PENDING",
       },
     });

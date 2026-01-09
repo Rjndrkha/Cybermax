@@ -1,6 +1,6 @@
 import { Form, Input, Button, Card, Select, message, Typography } from "antd";
-import api from "../api/axios";
 import { useNavigate, Link } from "react-router-dom";
+import api from "../../api/axios";
 
 const { Title } = Typography;
 
